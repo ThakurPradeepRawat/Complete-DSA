@@ -1,97 +1,134 @@
-class Node():
-    def __init__(self , data=None , Next = None):
+class Node:
+    def __init__(self, data):
         self.data = data
-        self.next = Next
+        self.next = None
 
-class SinglyLinkedList():
-    def __init__(self , node = None):
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
         self.length = 0
-        self.head = node
-    def Traverse(self):
-        Current = self.head 
-        while(Current!=None):
-            print(Current.data,end="-->")
-            Current = Current.next
-    def Insert_At_Begining(self):
-        Data = int(input("Enter Data That you want to insert at begining "))
-        if self.length == 0 :
-            self.head = Node(Data)  
-            self.length+=1       
-        else:
-            newNode = Node()
-            newNode.data = Data 
-            newNode.next = self.head 
-            self.head = newNode
-            self.length+=1   
-    def Insert_At_End(self):
-        Data = int(input("Enter Data That you want to insert at End "))
-        if self.length == 0 :
-            self.head = Node(Data)
-            self.length+=1
-        else:
-            Current = self.head 
-            while(Current.next !=None):
-                Current = Current.next
-            Current.next = Node(Data)
-            self.length+=1
-    def Insert_At_Position(self):
-        pos = int(input("Enter Position where you want to insert Data : - "))
-        Data = int(input(f"Enter Data that you want to insert  at {pos}: - "))
-        if pos > self.length:
-            print("Position out of Linked List")
-        elif (pos==1):
-            newNode = Node()
-            newNode.data = Data
-            newNode.next = self.head 
-            self.head = newNode
-            self.length+=1
-        else :
-            current = self.head 
-            current_next = current.next
-            i = 1
-            while(i !=pos-1):
-                current=current.next
-                i+=1
-            newNode = Node()
-            newNode.data = Data
-            newNode.next = current_next.data 
-            current.next = newNode
 
-class Menu :
-    def Menu(self):
-        print("*"*10 , "Menu" , "*"*50)
-        menu = """
-            1. Insert At Begining 
-            2. Insert At End
-            3. Insert At Position 
-            4. Traverse Linked List
-            """
-        
-    
-        obj = SinglyLinkedList()
-        
-        while(True):
-            print(menu)   
-            choice = int(input("Choose what you want :- "))
+    def traverse(self):
+        if self.head is None:
+            print("Linked List is empty")
+            return
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+
+    def insert_at_beginning(self):
+        data = int(input("Enter data: "))
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+        self.length += 1
+        print("Inserted at beginning")
+
+    def insert_at_end(self):
+        data = int(input("Enter data: "))
+        new_node = Node(data)
+
+        if self.head is None:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+
+        self.length += 1
+        print("Inserted at end")
+
+    def insert_at_position(self):
+        pos = int(input("Enter position: "))
+        data = int(input("Enter data: "))
+
+        if pos < 1 or pos > self.length + 1:
+            print("Invalid position")
+            return
+
+        if pos == 1:
+            self.head = Node(data)
+            return
+        new_node = Node(data)
+        current = self.head
+        for _ in range(pos - 2):
+            current = current.next
+
+        new_node.next = current.next
+        current.next = new_node
+        self.length += 1
+        print(f"Inserted at position {pos}")
+
+    def delete_from_beginning(self):
+        if self.head is None:
+            print("Linked List is empty")
+            return
+
+        self.head = self.head.next
+        self.length -= 1
+        print("Deleted from beginning")
+
+    def delete_from_end(self):
+        if self.head is None:
+            print("Linked List is empty")
+            return
+
+        if self.head.next is None:
+            self.head = None
+        else:
+            current = self.head
+            while current.next.next:
+                current = current.next
+            current.next = None
+
+        self.length -= 1
+        print("Deleted from end")
+
+
+class Menu:
+    def run(self):
+        ll = SinglyLinkedList()
+
+        while True:
+            print("\n" + "*" * 20 + " MENU " + "*" * 20)
+            print("""
+1. Insert at Beginning
+2. Insert at End
+3. Insert at Position
+4. Traverse
+5. Delete from Beginning
+6. Delete from End
+7. Exit
+""")
+
+            choice = int(input("Enter your choice: "))
+
             match choice:
-                case 1 :
-                    obj.Insert_At_Begining()
-                case 2 : 
-                    obj.Insert_At_End()
-                case 3 :
-                    obj.Insert_At_Position()
+                case 1:
+                    ll.insert_at_beginning()
+                case 2:
+                    ll.insert_at_end()
+                case 3:
+                    ll.insert_at_position()
                 case 4:
-                    obj.Traverse()
-                case _ :
+                    ll.traverse()
+                case 5:
+                    ll.delete_from_beginning()
+                case 6:
+                    ll.delete_from_end()
+                case 7:
+                    print("Thank you!")
                     break
-val = Menu()
-val.Menu()
+                case _:
+                    print("Invalid choice")
 
 
 
-            
-
-
+Menu().run()
 
 
     
