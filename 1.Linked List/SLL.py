@@ -44,20 +44,21 @@ class SinglyLinkedList:
 
     def insert_at_position(self):
         pos = int(input("Enter position: "))
-        data = int(input("Enter data: "))
+        Data = int(input("Enter data: "))
 
         if pos < 1 or pos > self.length + 1:
             print("Invalid position")
             return
 
         if pos == 1:
-            self.head = Node(data)
+            new_node = Node(Data)
+            new_node.next = self.head 
+            self.head = new_node
             return
-        new_node = Node(data)
+        new_node = Node(Data)
         current = self.head
         for _ in range(pos - 2):
             current = current.next
-
         new_node.next = current.next
         current.next = new_node
         self.length += 1
@@ -87,8 +88,34 @@ class SinglyLinkedList:
 
         self.length -= 1
         print("Deleted from end")
-
-
+    
+    def delete_from_position(self):
+        pos = int(input("Enter Position:- "))
+        if pos<1 or pos > self.length:
+            print("Position is not valid")
+        elif (pos ==1):
+            self.head = self.head.next
+        else:
+            current = self.head 
+            for _ in range(pos-2):
+                current = current.next 
+            current.next = current.next.next
+        print(f"Delete from {pos} position")
+        self.length-=1
+     
+    def Check_element_present(self):
+        Data = int(input("Enter Data :- "))
+        if(self.length==0):
+            print("Linked List is empty") 
+            return 
+        current = self.head 
+        while(current!=None):
+            if current.data == Data :
+                print(f"{Data} is present in Linked List")
+                return
+            current = current.next 
+        print(f"{Data} is not present in Linked List")
+    
 class Menu:
     def run(self):
         ll = SinglyLinkedList()
@@ -102,7 +129,9 @@ class Menu:
 4. Traverse
 5. Delete from Beginning
 6. Delete from End
-7. Exit
+7. Delete from Position
+8. Check this element present or not 
+9. Exit
 """)
 
             choice = int(input("Enter your choice: "))
@@ -121,6 +150,10 @@ class Menu:
                 case 6:
                     ll.delete_from_end()
                 case 7:
+                    ll.delete_from_position()
+                case 8:
+                    ll.Check_element_present()
+                case 9:
                     print("Thank you!")
                     break
                 case _:
