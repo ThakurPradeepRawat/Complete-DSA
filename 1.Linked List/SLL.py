@@ -159,8 +159,6 @@ class Menu:
                 case _:
                     print("Invalid choice")
 
-
-
 Menu().run()
 
 
