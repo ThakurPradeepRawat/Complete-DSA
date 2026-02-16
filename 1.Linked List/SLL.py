@@ -115,7 +115,23 @@ class SinglyLinkedList:
                 return
             current = current.next 
         print(f"{Data} is not present in Linked List")
-    
+
+    def Reverse_Linked_List(self):
+        if self.head == None :
+            print("Linked List is Empty")
+            return  
+        curr = self.head 
+        prev = None
+        next = None 
+        while(curr!=None):
+            next = curr.next 
+            curr.next = prev 
+            prev = curr 
+            curr = next 
+        self.head = prev
+        print("Reverse Linked List :- ")
+        self.traverse()
+
 class Menu:
     def run(self):
         ll = SinglyLinkedList()
@@ -131,7 +147,8 @@ class Menu:
 6. Delete from End
 7. Delete from Position
 8. Check this element present or not 
-9. Exit
+9. Reverse Linked list
+10. Exit
 """)
 
             choice = int(input("Enter your choice: "))
@@ -154,7 +171,9 @@ class Menu:
                 case 8:
                     ll.Check_element_present()
                 case 9:
-                    print("Thank you!")
+                    ll.Reverse_Linked_List()
+                case 10:
+                    print("Thank You ")
                     break
                 case _:
                     print("Invalid choice")
