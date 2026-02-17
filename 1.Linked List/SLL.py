@@ -132,10 +132,19 @@ class SinglyLinkedList:
         print("Reverse Linked List :- ")
         self.traverse()
 
+    #  LeetCode Problem Number 876 
+    def MiddleOfTheLinkedList(self):
+        between = self.length//2 + 1
+        i = 1
+        current = self.head 
+        while(i!=between):
+            current=current.next 
+            i+=1
+        print("Middle element  of the linked list is :- " , current.data)
+     
 class Menu:
     def run(self):
         ll = SinglyLinkedList()
-
         while True:
             print("\n" + "*" * 20 + " MENU " + "*" * 20)
             print("""
@@ -148,7 +157,8 @@ class Menu:
 7. Delete from Position
 8. Check this element present or not 
 9. Reverse Linked list
-10. Exit
+10.Middle  Element Of the Linked list 
+11. Exit
 """)
 
             choice = int(input("Enter your choice: "))
@@ -173,13 +183,14 @@ class Menu:
                 case 9:
                     ll.Reverse_Linked_List()
                 case 10:
+                    ll.MiddleOfTheLinkedList()
+                case 11:
                     print("Thank You ")
                     break
                 case _:
                     print("Invalid choice")
 
 Menu().run()
-
 
     
     
